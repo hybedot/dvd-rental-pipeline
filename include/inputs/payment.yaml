@@ -1,0 +1,7 @@
+dag_version: '01'
+table_name: 'payment'
+load_method: 'incremental'
+start_date: '2007-02-14'
+end_date: '2007-02-20'
+date_column: 'payment_date'
+redshift_load_method: 'APPEND'

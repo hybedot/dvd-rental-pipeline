@@ -1,0 +1,7 @@
+dag_version: '01'
+table_name: 'actor'
+load_method: 'snapshot'
+start_date: '2013-05-06'
+end_date: '2013-05-06'
+date_column: 'last_update'
+redshift_load_method: 'REPLACE'

@@ -1,0 +1,6 @@
+# Astro Runtime includes the following pre-installed providers packages: https://docs.astronomer.io/astro/runtime-image-architecture#provider-packages
+apache-airflow-providers-amazon==7.4.1
+Jinja2
+pyyaml
+pathlib
+astronomer-cosmos[dbt.redshift]
