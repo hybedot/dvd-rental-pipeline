@@ -4,3 +4,4 @@ sources:
   - name: raw_data
     tables:
       - name: payment
+      - name: customer

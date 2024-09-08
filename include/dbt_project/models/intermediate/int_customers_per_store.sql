@@ -2,6 +2,6 @@ SELECT
     store_id,
     COUNT(*) AS total_customers
 FROM
-    {{ ref('customer_base') }}
+    {{ ref('stg_customer') }}
 GROUP BY
     1

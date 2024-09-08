@@ -27,7 +27,7 @@ docker exec -it <postgres container_id> pg_restore -d <dvd_rental_database_name>
 
 ## Data Lake Setup
 - Create an account on AWS
-- Create s3 bucket. The name must be globally unique. Update the ```MY_S3_BUCKET``` variable  in ```dag_template.jinja2``` file
+- Create s3 bucket. The name must be globally unique. Update the ```MY_S3_BUCKET``` variable  in ```dag_template.jinja2``` file and in the extract and load dags
 - Create IAM user with s3 access
 - Create and download access key
 

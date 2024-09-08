@@ -18,11 +18,11 @@ REDSHIFT_CONN_ID = "redshift_conn"
 RAW_SCHEMA = "raw_data"
 
 
-MY_S3_KEY = "payment"\
+MY_S3_KEY = "customer"\
              "/{{ macros.ds_format(ds, '%Y-%m-%d', '%Y') }}"\
             "/{{ macros.ds_format(ds, '%Y-%m-%d', '%m') }}"\
             "/{{ macros.ds_format(ds, '%Y-%m-%d', '%d') }}"\
-            "/payment"\
+            "/customer"\
             "{{ ds_nodash }}.csv" 
 
 
@@ -37,9 +37,9 @@ DEFAULT_DAG_ARGS = {
 
 
 with DAG(
-    dag_id="payment_extract_load_v_01",
-    start_date=datetime.strptime("2007-02-14", "%Y-%m-%d"),
-    end_date=datetime.strptime("2007-02-20", "%Y-%m-%d"),
+    dag_id="customer_extract_load_v_01",
+    start_date=datetime.strptime("2013-05-06", "%Y-%m-%d"),
+    end_date=datetime.strptime("2013-05-06", "%Y-%m-%d"),
     default_args=DEFAULT_DAG_ARGS,
     template_searchpath=f"{BASE_PATH}/include/",
     schedule_interval="@daily",
@@ -49,11 +49,11 @@ with DAG(
 
     psql_to_s3 = SqlToS3Operator(
         task_id = "psql_to_s3_data_extract",
-        query="sql/incremental.sql",
+        query="sql/snapshot.sql",
         s3_bucket=MY_S3_BUCKET,
         s3_key=MY_S3_KEY,
         sql_conn_id=MY_SQL_CONN_ID,
-        params={"table_name": "payment", "date_column": "payment_date"},
+        params={"table_name": "customer", "date_column": "last_update"},
         replace="False",
         aws_conn_id=AWS_CONN_ID,
         file_format="csv",
@@ -64,18 +64,18 @@ with DAG(
         task_id = "create_table",
         redshift_conn_id = REDSHIFT_CONN_ID,
         autocommit = True,
-        sql="sql/create_tables/payment.sql",
+        sql="sql/create_tables/customer.sql",
     )
 
     s3_to_reshift = S3ToRedshiftOperator(
         task_id="s3_to_reshift_data_load",
         schema=RAW_SCHEMA,
-        table="payment",
+        table="customer",
         s3_bucket=MY_S3_BUCKET,
         s3_key=MY_S3_KEY,
         redshift_conn_id=REDSHIFT_CONN_ID,
         aws_conn_id=AWS_CONN_ID,
-        method="APPEND",
+        method="REPLACE",
         copy_options=['CSV', 'IGNOREHEADER 1']
         
     )

@@ -11,3 +11,12 @@ models:
       - name: customer_id
         tests:
           - not_null
+
+  - name: stg_customer
+    description: "Staging model consisting of customer details"
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+   

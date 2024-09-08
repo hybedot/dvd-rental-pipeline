@@ -11,7 +11,7 @@ from pathlib import Path
 
 
 BASE_PATH = Path(__file__).parent.parent
-MY_S3_BUCKET = "eingineerdata-dvd-rental"
+MY_S3_BUCKET = "data-engineer-dvd-rental"
 MY_SQL_CONN_ID = "postgres_conn"
 AWS_CONN_ID = "aws_s3_conn"
 REDSHIFT_CONN_ID = "redshift_conn"
@@ -37,14 +37,13 @@ DEFAULT_DAG_ARGS = {
 
 
 with DAG(
-    dag_id="actor_extract_load_v01",
+    dag_id="actor_extract_load_v_01",
     start_date=datetime.strptime("2013-05-06", "%Y-%m-%d"),
     end_date=datetime.strptime("2013-05-06", "%Y-%m-%d"),
     default_args=DEFAULT_DAG_ARGS,
     template_searchpath=f"{BASE_PATH}/include/",
     schedule_interval="@daily",
     catchup=True,
-    # tags="main",
 ) as dag:
 
 
