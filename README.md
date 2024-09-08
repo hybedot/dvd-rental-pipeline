@@ -44,20 +44,22 @@ Note: Please delete the redshift cluster immediately your are done with the proj
 
 
 ## Dag Generation
-The extract and load dags where generated dynamically from a jinja template. To to create these dags, create a .yaml file in ```include/inputs/``` directory using the table name as file name e.g ```payment.yaml```. The file must contain the following details
+- The extract and load dags where generated dynamically from a jinja template. To to create these dags, create a .yaml file in ```include/inputs/``` directory using the table name as file name e.g ```payment.yaml```. The file must contain the following details
 
 
-```
-dag_version: '01'
-table_name: 'payment'
-load_method: 'incremental'
-start_date: '2007-02-14'
-end_date: '2007-02-20'
-date_column: 'payment_date'
-redshift_load_method: 'APPEND'
-```
+    ```
+    dag_version: '01'
+    table_name: 'payment'
+    load_method: 'incremental'
+    start_date: '2007-02-14'
+    end_date: '2007-02-20'
+    date_column: 'payment_date'
+    redshift_load_method: 'APPEND'
+    ```
 
-After creating ```.yaml``` files, navigate to the ```scripts/``` directory then run the dag generator python script locally ```python3 dag_generator.py```. Make sure you have jinja2, pathlib and yaml is installed locally
+    After creating ```.yaml``` files, navigate to the ```scripts/``` directory then run the dag generator python script locally ```python3 dag_generator.py```. Make sure you have jinja2, pathlib and yaml is installed locally
+
+- Add redshift creat table scripts in  ```include/sql/create_tables``` using the table name as the file name
 
 
 ## DBT Setup
