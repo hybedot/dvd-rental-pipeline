@@ -38,7 +38,7 @@ docker exec -it <postgres container_id> pg_restore -d <dvd_rental_database_name>
 - Allow public connections to Amazon Redshift. Edit Network and security settings in the cluster properties tab
 - Grant your IP access to the redshift cluster in the cluster VPC security group settings by editing the inbound rule 
 - Open redshift query editor. Connect to the cluster using username and password. Create a database named ```dvd_rental``` and two Schemas. One schema for the ```raw_data``` and the other for the ```transformed_data```
-- Create database tables for all data source tables
+
 
 Note: Please delete the redshift cluster immediately your are done with the project (if you don't need it afterwards) as it expensive to run the clusters. Also, the cluster network configuration mentioned is only used for learning purpose. Do not use in prod environment.
 
